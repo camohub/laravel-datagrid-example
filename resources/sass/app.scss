@@ -1,0 +1,31 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+html, body, textarea, ul, li, h1, h2, h3, h4, h5, form {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	color: #000;
+	font-weight: normal;
+	box-sizing: border-box;
+}
+body {
+	position: relative;
+	overflow: auto;
+}
+#wrapper {
+	min-height: 100%;
+	/* makes footer visible cause 100% push it outside of window */
+	margin-bottom: -5em;
+}
