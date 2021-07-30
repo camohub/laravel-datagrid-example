@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Entities\Article;
+use App\Models\Entities\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,4 +41,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+	protected $with = [
+		'roles'
+	];
+
+
+	public function roles()
+	{
+		return $this->belongsToMany(Role::class, 'users_roles');
+	}
+
+	public function articles()
+	{
+		return $this->hasMany(Article::class);
+	}
+
+
+	public function hasRole($roles)
+	{
+		$roles = (array)$roles;
+
+		foreach ($roles as $role)
+		{
+			$hasRole = $this->roles->first(function ($value, $key) use ($role) {
+				return mb_strtolower($value->name) == mb_strtolower($role);
+			});
+
+			if( $hasRole ) return TRUE;
+		}
+
+		return FALSE;
+	}
 }

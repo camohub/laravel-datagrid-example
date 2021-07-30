@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.base')
 
 @section('body')
 
@@ -12,20 +12,25 @@
 
 <div id="wrapper">
 
-	<div id="header-wrapper" class="bS2">
+	<div id="header-wrapper" class="">
 		<div class="container">
-			<div class="row oH">
-				<h1 id="header" class="col-12 oH translate translateInit">Camohub Laravel Datagrid</h1>
+			<div class="row">
+				<h1 id="header" class="col-12 translate translateInit">Camohub Laravel Datagrid</h1>
+				<h2 class="col-12 translate translateInit">examples</h2>
+
+				<ul id="top-menu" class="col-12">
+					<li><a href="{{route('index')}}">Basic</a></li>
+					<li><a href="{{route('date-pickers')}}">Date pickers</a></li>
+					<li><a href="{{route('ajax')}}">Ajax</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
 
-	<div class="container zI10">
-		<div class="row pT50">
+	<div class="container">
+		<div class="row">
 
-			@include('components.sidebar.sidebar')
-
-			<div id="main" class="translateInit translate-2 col-xs-12 col-sm-8 col-md-9 col-lg-8">
+			<div id="main" class="translateInit translate-2 col-12">
 
 				@yield('content')
 

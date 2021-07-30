@@ -29,3 +29,27 @@ body {
 	/* makes footer visible cause 100% push it outside of window */
 	margin-bottom: -5em;
 }
+
+#header {
+	padding-top: 50px;
+	color: $red;
+}
+
+#top-menu {
+	padding-top: 30px;
+	font-weight:bold;
+	list-style-type: none;
+
+	li {
+		float: left;
+		margin-right: 25px;
+
+		a {
+			color: $black
+		}
+	}
+}
+
+#footer {
+	text-align: center;
+}

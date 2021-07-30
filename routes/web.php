@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', 'DefaultController@index')->name('index');
+Route::get('/date-pickers', 'DefaultController@datePickers')->name('date-pickers');
+Route::get('/ajax', 'DefaultController@ajax')->name('ajax');
+
+
+Route::get('/edti', 'DefaultController@ajax')->name('edit');
+Route::get('/visibility', 'DefaultController@ajax')->name('visibility');
+Route::get('/delete', 'DefaultController@ajax')->name('delete');

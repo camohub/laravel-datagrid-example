@@ -46,7 +46,7 @@
 
 
 <div id="footer">
-	<strong>Created & designed by <a href="{{route('welcome')}}">Tatrytec.eu</a> 2020</strong> &nbsp;&nbsp
+	<strong>Created & designed by <a href="https://tatrytec.eu/blog">Tatrytec.eu</a> 2020</strong> &nbsp;&nbsp
 	<a href="{{route('page', ['page' => 'gdpr-ochrana-osobnych-udajov'])}}">GDPR</a>
 </div>
 
@@ -55,11 +55,6 @@
 <script>
 	let showModal = '{{$showModal}}';
 </script>
-
-@include('components.login-form-modal')
-@include('components.register-form-modal')
-@include('components.forgotten-password-form-modal')
-
 
 {{-- ALERTS --}}
 <div id="alerts-wrapper">
