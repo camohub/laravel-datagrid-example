@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entities\Article;
-use App\Models\User;
 use Camohub\LaravelDatagrid\Column;
 use Camohub\LaravelDatagrid\Datagrid;
-use Illuminate\Http\Request;
 
 
 class DefaultController extends Controller
@@ -18,10 +16,7 @@ class DefaultController extends Controller
 	 */
 	public function index()
 	{
-		//$grid = $this->getBaseDatagrid();
-
-		dd(User::take(1)->with('articles')->get());
-		dd(Article::take(1)->with('categories')->get());
+		$grid = $this->getBaseDatagrid();
 
 		return view('default.index', ['grid' => $grid]);
 	}
@@ -42,7 +37,9 @@ class DefaultController extends Controller
 	public function getBaseDatagrid()
 	{
 		$grid = new Datagrid(Article::with('user'));
+
 		$grid->setJSFilterTimeout(1000);
+
 		$grid->addColumn('id')
 			->setSort()
 			->setFilter(function($model, $value) {
@@ -58,7 +55,7 @@ class DefaultController extends Controller
 			->setSubmitOnEnter();
 
 		$grid->addColumn('created_at', 'Created')
-			->setRender(function($value, $item) {
+			->setRender(function($value, $row) {
 				return '<b>' . $value->format('d.m.Y H:i') . '</b>';
 			})
 			->setFilterRender(function ($column) {
@@ -68,12 +65,12 @@ class DefaultController extends Controller
 									value='" . ($column->filterValue ? ($column->filterValue[0] ?? '') : '') ."'
 									type='text' 
 									class='form-control chgrid-filter' 
-									style='display: inline-block; width: 49%;'>
+									style='display: block; width: 49%; float: left'>
 								<input name='{$column->filterParamName}[]' 
 									value='" . ($column->filterValue ? ($column->filterValue[1] ?? '')  : '') ."'
 									type='text' 
 									class='form-control chgrid-filter' 
-									style='display: inline-block; width: 49%'>
+									style='display: block; width: 49%; float: left; margin-left: 2%;'>
 						</div>";
 			})
 			->setFilter(function($model, $value) {
@@ -83,24 +80,25 @@ class DefaultController extends Controller
 			->setSort();
 
 		$grid->addColumn('visible', 'Visible')
-			->setOutherClass(function($value, $item) {
+			->setOutherClass(function($value, $row) {
 				return $value ? 'bg-success' : 'bg-danger';
 			});
 
 		$grid->addColumn('user.name', 'User');
+
 		$grid->addColumn('user.roles', 'Roles')
-			->setRender(function($value, $item) {
+			->setRender(function($value, $row) {
 				return $value->map( function($value) { return $value->name; } )->join(', ');
 			});
 
 		$grid->addColumn('', '', Column::TYPE_CUSTOM)
 			->setNoEscape()
-			->setRender(function($value, $item) {
-				return '
-					<a href="' . route('edit', ['id' => $item->id]) . '">edit</a>
-					<a href="' . route('visibility', ['id' => $item->id]) . '">visibility</a>
-					<a href="' . route('delete', ['id' => $item->id]) . '" class="text-danger">visibility</a>
-				';
+			->setRender(function($value, $row) {
+				return '<div style="width: 100px; text-align: right">
+					<a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil"></a> 
+					<a href="' . route('visibility', ['id' => $row->id]) . '" class="fa fa-eye"></a> 
+					<a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash"></a>
+				</div>';
 			});
 
 		return $grid;

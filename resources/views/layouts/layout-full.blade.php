@@ -16,9 +16,9 @@
 		<div class="container">
 			<div class="row">
 				<h1 id="header" class="col-12 translate translateInit">Camohub Laravel Datagrid</h1>
-				<h2 class="col-12 translate translateInit">examples</h2>
+				<h2 class="col-12 col-md-3 translate translateInit">examples</h2>
 
-				<ul id="top-menu" class="col-12">
+				<ul id="top-menu" class="col-12 col-md-9">
 					<li><a href="{{route('index')}}">Basic</a></li>
 					<li><a href="{{route('date-pickers')}}">Date pickers</a></li>
 					<li><a href="{{route('ajax')}}">Ajax</a></li>

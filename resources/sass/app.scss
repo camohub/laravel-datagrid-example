@@ -6,6 +6,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~code-prettify/src/prettify";
 
 
 html, body, textarea, ul, li, h1, h2, h3, h4, h5, form {
@@ -30,26 +31,51 @@ body {
 	margin-bottom: -5em;
 }
 
-#header {
-	padding-top: 50px;
-	color: $red;
-}
+#header-wrapper {
 
-#top-menu {
-	padding-top: 30px;
-	font-weight:bold;
-	list-style-type: none;
+	margin-bottom: 30px;
 
-	li {
-		float: left;
-		margin-right: 25px;
+	#header {
+		padding-top: 50px;
+		color: $red;
+		font-weight: bold;
+		align-items: baseline
+	}
 
-		a {
-			color: $black
+	.row {
+		align-items: baseline;
+
+		#top-menu {
+			font-weight:bold;
+			list-style-type: none;
+
+			li {
+				display: inline-block;
+				margin-right: 20px;
+
+				a {
+					color: $black
+				}
+			}
+		}
+
+		@media (max-width: 767px) {
+			#top-menu {
+				padding-top: 30px;
+			}
 		}
 	}
+}
+
+#main {
+	padding-bottom: 10em;
 }
 
 #footer {
 	text-align: center;
 }
+
+
+
+// Variables
+@import 'components/data-grid';

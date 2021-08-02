@@ -34,7 +34,7 @@ class Article extends Model
 	protected $casts = [];
 
 
-	//protected $with = ['user'];
+	protected $with = ['user'];
 
 
 	public function user()
