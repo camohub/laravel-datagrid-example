@@ -6,37 +6,26 @@ use App\Models\Entities\Article;
 use Camohub\LaravelDatagrid\Column;
 use Camohub\LaravelDatagrid\Datagrid;
 use Faker\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
-class DefaultController extends Controller
+class AjaxController extends Controller
 {
 	/**
 	 * Show the application dashboard.
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$grid = $this->getBaseDatagrid();
-
-		return view('default.index', ['grid' => $grid]);
+		return $request->ajax()
+			? view('ajax.ajax-datagrid', ['grid' => $this->getDatagrid()])
+			: view('ajax.index', ['grid' => $this->getDatagrid()]);
 	}
 
 
-	public function datePickers()
-	{
-		return view('default.date-pickers');
-	}
-
-
-	public function ajax()
-	{
-		return view('default.ajax');
-	}
-
-
-	public function getBaseDatagrid()
+	public function getDatagrid()
 	{
 		$grid = new Datagrid(Article::with('user')->select('articles.*'));
 
@@ -63,22 +52,7 @@ class DefaultController extends Controller
 		$grid->addColumn('created_at', 'Created')
 			->setRender(function($value, $row) {
 				return '<b>' . $value->format('d.m.Y') . '</b>';
-			})/*
-			->setFilterRender(function ($column) {
-				//dd($column->filterValue);
-				return "<div class='' style='width: 250px;'>
-								<input name='{$column->filterParamName}[]' 
-									value='" . ($column->filterValue ? ($column->filterValue[0] ?? '') : '') ."'
-									type='text' 
-									class='form-control chgrid-filter' 
-									style='display: block; width: 49%; float: left'>
-								<input name='{$column->filterParamName}[]' 
-									value='" . ($column->filterValue ? ($column->filterValue[1] ?? '')  : '') ."'
-									type='text' 
-									class='form-control chgrid-filter' 
-									style='display: block; width: 49%; float: left; margin-left: 2%;'>
-						</div>";
-			})*/
+			})
 			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
 			->setFilter(function($model, $value) {
 				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
@@ -122,6 +96,5 @@ class DefaultController extends Controller
 			});
 
 		return $grid;
-
 	}
 }

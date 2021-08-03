@@ -18,25 +18,11 @@ class DefaultController extends Controller
 	 */
 	public function index()
 	{
-		$grid = $this->getBaseDatagrid();
-
-		return view('default.index', ['grid' => $grid]);
+		return view('date-pickers.index');
 	}
 
 
-	public function datePickers()
-	{
-		return view('default.date-pickers');
-	}
-
-
-	public function ajax()
-	{
-		return view('default.ajax');
-	}
-
-
-	public function getBaseDatagrid()
+	public function ajaxDatagrid()
 	{
 		$grid = new Datagrid(Article::with('user')->select('articles.*'));
 

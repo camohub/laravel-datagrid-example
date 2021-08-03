@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/', 'DefaultController@index')->name('index');
-Route::get('/date-pickers', 'DefaultController@datePickers')->name('date-pickers');
-Route::get('/ajax', 'DefaultController@ajax')->name('ajax');
+Route::get('/date-pickers', 'DatePickersController@index')->name('date-pickers');
+Route::get('/ajax', 'AjaxController@index')->name('ajax');
+Route::get('/ajax-datagrid', 'AjaxController@ajaxDatagrid')->name('ajax-datagrid');
 
 
-Route::get('/edti', 'DefaultController@ajax')->name('edit');
-Route::get('/visibility', 'DefaultController@ajax')->name('visibility');
-Route::get('/delete', 'DefaultController@ajax')->name('delete');
+Route::get('/edit', 'ActionsController@ajax')->name('edit');
+Route::get('/visibility', 'ActionsController@ajax')->name('visibility');
+Route::get('/delete', 'ActionsController@ajax')->name('delete');

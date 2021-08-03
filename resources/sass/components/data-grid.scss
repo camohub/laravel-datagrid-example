@@ -1,5 +1,39 @@
-#chgrid-form a.fa {
-	display: inline-block;
-	padding-left: 7px;
-	text-decoration: none;
+#chgrid-form {
+
+	a.fa {
+		display: inline-block;
+		padding-left: 7px;
+		text-decoration: none;
+	}
+
+	.colId {
+		width: 80px;
+	}
+
+	.colActions {
+		min-width: 105px;
+		text-align: right;
+	}
+
+	.table-striped tbody tr:nth-of-type(odd) {
+
+		background-color: rgba(0, 0, 0, 0.03);
+	}
+
+	.table-hover tbody tr:hover {
+
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	td.bg-danger {
+		background-color: #fc4a4a !important;
+	}
+
+	td.bg-primary {
+		background-color: #41c7dd !important;
+	}
+
+	th.asc, th.desc {
+		color: $blue;
+	}
 }

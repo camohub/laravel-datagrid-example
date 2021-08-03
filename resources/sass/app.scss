@@ -6,7 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-@import "~code-prettify/src/prettify";
+
+//@import "~code-prettify/src/prettify";
+@import "components/prettify";
 
 
 html, body, textarea, ul, li, h1, h2, h3, h4, h5, form {
@@ -33,7 +35,7 @@ body {
 
 #header-wrapper {
 
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 
 	#header {
 		padding-top: 50px;
