@@ -178,6 +178,10 @@ class DefaultController extends Controller
 			<li><b>setFilter()</b> - accepts callback with two parameters - queryBuilder and filter value.
 				Filter callback is not called if filter value is NULL or empty string. Other values like 0 will call the filter.
 
+			<li><b>setFilterSelect()</b> - expects associative array and options prompt parameter.
+				This function renders select element in the filter field.
+				Datagrid sets the selected option according the $key === $value condition. Ensure that you compare the same types.
+
 			<li><b>setJSFilterPattern()</b> - accepts javascript regexp patterns as string. If value does not match
 				the pattern validator will block the request and will add .text-danger class to input field.
 

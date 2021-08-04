@@ -28,6 +28,10 @@ class DefaultController extends Controller
 
 		$grid->setJSFilterTimeout(500);
 
+		$grid->setDefaultSort(function ($model) {
+			return $model->orderBy('id', 'desc');
+		});
+
 		$grid->addColumn('id')
 			->setOutherTitleClass('text-center')
 			->setOutherClass(function() { return 'colId text-center'; });
@@ -81,6 +85,10 @@ class DefaultController extends Controller
 		$grid->addColumn('visible', 'Visible')
 			->setOutherClass(function($value, $row) {
 				return $value ? 'bg-primary text-center' : 'bg-danger text-center';
+			})
+			->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
+			->setFilter(function ($model, $value) {
+				return $model->where('visible', $value);
 			});
 
 		$grid->addColumn('', '', Column::TYPE_CUSTOM)
