@@ -7,9 +7,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Datepicker
+@import '~daterangepicker';
+
 //@import "~code-prettify/src/prettify";
 @import "components/prettify";
-
 
 html, body, textarea, ul, li, h1, h2, h3, h4, h5, form {
 	margin: 0;
@@ -27,10 +29,20 @@ body {
 	position: relative;
 	overflow: auto;
 }
+
+.container-fluid {
+	max-width: 1300px;
+}
+
 #wrapper {
 	min-height: 100%;
 	/* makes footer visible cause 100% push it outside of window */
 	margin-bottom: -5em;
+	font-size: 1.05rem;
+
+	pre {
+		font-size: 0.9rem;
+	}
 }
 
 #header-wrapper {

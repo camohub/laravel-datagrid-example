@@ -17,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 //Auth::routes();
 
 Route::get('/', 'DefaultController@index')->name('index');
-Route::get('/date-pickers', 'DatePickersController@index')->name('date-pickers');
 Route::get('/ajax', 'AjaxController@index')->name('ajax');
-Route::get('/ajax-datagrid', 'AjaxController@ajaxDatagrid')->name('ajax-datagrid');
+Route::get('/date-pickers', 'DatePickersController@index')->name('date-pickers');
 
 
 Route::get('/edit', 'ActionsController@ajax')->name('edit');

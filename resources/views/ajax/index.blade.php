@@ -31,8 +31,21 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 </script>
 
-Controller code looks like
+<p>The code will need little javascript in the template file. Controller code looks like
+
 <pre class="prettyprint">
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Entities\Article;
+use Camohub\LaravelDatagrid\Column;
+use Camohub\LaravelDatagrid\Datagrid;
+use Illuminate\Http\Request;
+
+
+class AjaxController extends Controller
+{
 	public function index(Request $request)
 	{
 		return $request->ajax()
@@ -51,24 +64,25 @@ Controller code looks like
 			->setOutherTitleClass('text-center')
 			->setOutherClass(function() { return 'colId text-center'; });
 
-
+		...  // The same code as in basic example
 
 		return $grid;
 	}
+}
 </pre>
 
-The main difference is in the template code which looks like
+<p>The main difference is in the template code which looks like
 
 <pre class="prettyprint">
-@extends('layouts.layout-full')
+&commat;extends('layouts.layout-full')
 
-@section('content')
+&commat;section('content')
 
-<div id="ajax-datagrid">
-	@include('ajax.ajax-datagrid')
-</div>
+&lt;div id="ajax-datagrid"&gt;
+	&commat;include('ajax.ajax-datagrid')
+&lt;/div&gt;
 
-<script>
+&lt;script&gt;
 
 // Here is the key part which switches the datagrid to ajax.
 window.addEventListener('DOMContentLoaded', function(e) {
@@ -81,7 +95,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 		// #chgrid-form is dynamic form. Always needs to have fresh instance.
 		var ajaxChgridForm = ajaxDatagridWrapper.find('#chgrid-form');
 
-		axios.get('{{route('ajax')}}?' + ajaxChgridForm.serialize())
+		axios.get('&lcub;&lcub;route('ajax')&rcub;&rcub;?' + ajaxChgridForm.serialize())
 			.then(function(response) {
 				ajaxDatagridWrapper.html(response.data);
 			}).catch(function(response) {
@@ -90,9 +104,9 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	});
 });
 
-</script>
+&lt;/script&gt;
 
-@endsection
+&commat;endsection
 </pre>
 
 

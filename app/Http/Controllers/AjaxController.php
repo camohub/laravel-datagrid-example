@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Entities\Article;
 use Camohub\LaravelDatagrid\Column;
 use Camohub\LaravelDatagrid\Datagrid;
-use Faker\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 
 class AjaxController extends Controller
@@ -45,6 +43,7 @@ class AjaxController extends Controller
 							class='form-control chgrid-filter' 
 							name='{$column->filterParamName}'  
 							value='{$column->filterValue}' 
+							data-submitOnEnter='1'
 							title='Press enter to send filter request.'>";
 			})
 			->setSubmitOnEnter();

@@ -13,7 +13,7 @@
 <div id="wrapper">
 
 	<div id="header-wrapper" class="">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<h1 id="header" class="col-12 translate translateInit">Camohub Laravel Datagrid</h1>
 				<h2 class="col-12 col-md-3 translate translateInit">examples</h2>
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 
 			<div id="main" class="translateInit translate-2 col-12">

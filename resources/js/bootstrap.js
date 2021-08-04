@@ -23,6 +23,12 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
+
+import 'moment';
+
+import 'daterangepicker';
+
+
 import 'code-prettify';
 
 import './components/prettify';
