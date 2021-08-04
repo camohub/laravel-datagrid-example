@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p>Datagrid for Laravel models.
+<p>All examples are availabel on <a href="https://github.com/camohub/laravel-datagrid">Github</a>.
 
 <h2>Installation</h2>
 

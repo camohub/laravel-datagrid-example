@@ -17,13 +17,14 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 		// #chgrid-form is dynamic form. Always needs to have fresh instance.
 		var ajaxChgridForm = ajaxDatagridWrapper.find('#chgrid-form');
+		var url = '{{route('ajax')}}?' + ajaxChgridForm.serialize();
 
-		axios.get('{{route('ajax')}}?' + ajaxChgridForm.serialize())
+		axios.get(url)
 			.then(function(response) {
 				ajaxDatagridWrapper.html(response.data);
+				window.history.pushState({}, '', url);
 			})
-			.catch(function(response)
-			{
+			.catch(function(response) {
 				console.log(response);
 			});
 	});
@@ -94,11 +95,14 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 		// #chgrid-form is dynamic form. Always needs to have fresh instance.
 		var ajaxChgridForm = ajaxDatagridWrapper.find('#chgrid-form');
+		var url = '{{route('ajax')}}?' + ajaxChgridForm.serialize();
 
-		axios.get('&lcub;&lcub;route('ajax')&rcub;&rcub;?' + ajaxChgridForm.serialize())
+		axios.get(url)
 			.then(function(response) {
 				ajaxDatagridWrapper.html(response.data);
-			}).catch(function(response) {
+				window.history.pushState({}, '', url);
+			})
+			.catch(function(response) {
 				console.log(response);
 			});
 	});
