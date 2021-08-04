@@ -100,10 +100,14 @@ class DefaultController extends Controller
 			// Turns off template html escaping.
 			->setNoEscape()
 
+		// Select filter
 		$grid->addColumn('visible', 'Visible')
-			// Outher means &lt;td&gt; element
-			->setOutherClass(function($value, $item) {
-				return $value ? 'bg-success' : 'bg-danger';
+			->setOutherClass(function($value, $row) {
+				return $value ? 'bg-primary text-center' : 'bg-danger text-center';
+			})
+			->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
+			->setFilter(function ($model, $value) {
+				return $model->where('visible', $value);
 			});
 
 		// HasOne relation
