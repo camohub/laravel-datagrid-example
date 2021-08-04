@@ -31,7 +31,7 @@ body {
 }
 
 .container-fluid {
-	max-width: 1300px;
+	max-width: 1200px;
 }
 
 #wrapper {
@@ -83,6 +83,32 @@ body {
 
 #main {
 	padding-bottom: 10em;
+
+	h2 {
+		margin-top: 30px;
+		margin-bottom: 25px;
+		padding-bottom: 14px;
+		font-size: 1.7rem;
+		font-weight: bold;
+		border-bottom: 1px solid $gray-200;
+	}
+
+	h3 {
+		margin-top: 24px;
+		margin-bottom: 14px;
+		padding-bottom: 14px;
+		font-size: 1.24rem;
+		font-weight: bold;
+		border-bottom: 1px solid $gray-200;
+	}
+
+	ul {
+		padding-left: 20px;
+		
+		li {
+			margin-bottom: 7px;
+		}
+	}
 }
 
 #footer {

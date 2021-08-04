@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'DefaultController@index')->name('index');
 Route::get('/ajax', 'AjaxController@index')->name('ajax');
 Route::get('/date-pickers', 'DatePickersController@index')->name('date-pickers');
+Route::get('/documentation', 'DocumentationController@index')->name('documentation');
 
 
 Route::get('/edit', 'ActionsController@ajax')->name('edit');
