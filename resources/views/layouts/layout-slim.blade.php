@@ -28,7 +28,7 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container-fluid slim">
 		<div class="row">
 
 			<div id="main" class="translateInit translate-2 col-12">

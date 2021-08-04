@@ -1,12 +1,10 @@
-@extends('layouts.layout-full')
+@extends('layouts.layout-slim')
 
 @section('content')
 
-<div class="row">
-	<div class="col-lg-10">
-		<p>Datagrid for Laravel models.
+<p>Datagrid for Laravel models.
 
-		<h2>Installation</h2>
+<h2>Installation</h2>
 
 <pre class="prettyprint">
 composer install camohub/laravel-datagrid
@@ -31,6 +29,7 @@ composer install camohub/laravel-datagrid
 				<b><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event">input event</a></b>.
 				There is also timeout as throttling to wait for another input events.
 				This timeout can be set in php grid definition globally by <b>setJSFilterTimeout()</b>.
+				Timeout can be replaced by setFilterOnEnter() on column level which stops auto submit and will wait for hit enter.
 
 			<li><b>perPage select</b> - onchange event triggers form submit immediately.
 
@@ -70,7 +69,7 @@ class DefaultController extends Controller
 		return view('default.index', ['grid' => $grid]);
 	}
 
-	public function getArticlesDatagrid()
+	public function getDatagrid()
 	{
 		$grid = new Datagrid(Article::with('user'));
 
@@ -170,10 +169,11 @@ class DefaultController extends Controller
 
 		<h3>Column options</h3>
 
+		<ul>
 			<li><b>setRender()</b> - accepts callback with two parameters - value and row.
 
-			<li><b>setSort()</b> - accepts empty to simple sort according flied name
-				or callback which gets two params - queryBuilder and sort value.
+			<li><b>setSort()</b> - accepts callback or no parameters. Without parameters make simple sort according field name.
+				Callback gets two params - queryBuilder and sort value.
 
 			<li><b>setFilter()</b> - accepts callback with two parameters - queryBuilder and filter value.
 				Filter callback is not called if filter value is NULL or empty string. Other values like 0 will call the filter.
@@ -181,7 +181,7 @@ class DefaultController extends Controller
 			<li><b>setJSFilterPattern()</b> - accepts javascript regexp patterns as string. If value does not match
 				the pattern validator will block the request and will add .text-danger class to input field.
 
-			<li><b>setSubmitOnEnter()</b> - prevent submit on input event and will wait for hit enter key to submit.
+			<li><b>setFilterOnEnter()</b> - alias for <b>setSubmitOnEnter()</b> - prevent submit on input event and will wait for hit enter key to submit.
 				This option is possible to set for the whole grid or for one column.
 				Does not affect sorting, pagination and perPage select. They are still automatically submited.
 
@@ -195,8 +195,6 @@ class DefaultController extends Controller
 			Callback will get two parameters - <b>value</b> and <b>row</b> and has to return <b>string</b>.
 
 			<li><b>setOutherTitleClass()</b> - accepts string value. Will set up css class of TH element with title.
+		</ul>
 
-
-	</div>
-</div>
 @endsection
