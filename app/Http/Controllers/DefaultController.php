@@ -51,9 +51,7 @@ class DefaultController extends Controller
 			->setSubmitOnEnter();
 
 		$grid->addColumn('created_at', 'Created')
-			->setRender(function($value, $row) {
-				return '<b>' . $value->format('d.m.Y') . '</b>';
-			})
+			->setSort()
 			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
 			->setFilter(function($model, $value) {
 				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
@@ -62,8 +60,10 @@ class DefaultController extends Controller
 				return $model->where('created_at', '>', $dateFrom)
 					->where('created_at', '<', $dateTo);
 			})
-			->setNoEscape()
-			->setSort();
+			->setRender(function($value, $row) {
+				return '<b>' . $value->format('d.m.Y') . '</b>';
+			})
+			->setNoEscape();
 
 		$grid->addColumn('user.name', 'User')
 			->setFilter(function($model, $value) {
@@ -72,6 +72,7 @@ class DefaultController extends Controller
 			});
 
 		$grid->addColumn('user.roles', 'Roles')
+			->setSort()
 			->setFilter(function($model, $value) {
 				return $model->join('users', 'articles.user_id', '=', 'users.id')
 					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -95,13 +96,13 @@ class DefaultController extends Controller
 			});
 
 		$grid->addColumn('', '', Column::TYPE_CUSTOM)
-			->setNoEscape()
 			->setOutherClass(function() { return 'colActions'; })
 			->setRender(function($value, $row) {
 				return '<a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil"></a> 
 					<a href="' . route('visibility', ['id' => $row->id]) . '" class="fa ' . ($row->visible ? 'fa-eye' : 'fa-minus-circle') . '"></a> 
 					<a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash"></a>';
-			});
+			})
+			->setNoEscape();
 
 		return $grid;
 
