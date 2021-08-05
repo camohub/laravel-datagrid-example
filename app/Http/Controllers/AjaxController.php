@@ -73,7 +73,6 @@ class AjaxController extends Controller
 			});
 
 		$grid->addColumn('user.roles', 'Roles')
-			->setSort()
 			->setFilter(function($model, $value) {
 				return $model->join('users', 'articles.user_id', '=', 'users.id')
 					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -85,6 +84,7 @@ class AjaxController extends Controller
 			});
 
 		$grid->addColumn('visible', 'Visible')
+			->setSort()
 			->setOutherClass(function($value, $row) {
 				return $value ? 'bg-primary text-center' : 'bg-danger text-center';
 			})
