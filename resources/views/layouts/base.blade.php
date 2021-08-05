@@ -59,9 +59,13 @@
 </script>
 
 {{-- ALERTS --}}
-<div id="alerts-wrapper">
+<div id="alerts">
 	@include('flash::message')
 </div>
+
+<script>
+	$('div.alert').not('.alert-important').delay(7000).fadeOut(350);
+</script>
 
 
 {{-- LOADER --}}

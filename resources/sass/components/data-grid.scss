@@ -7,6 +7,14 @@
 		display: inline-block;
 		padding-left: 7px;
 		text-decoration: none;
+
+		&.fa-minus-circle {
+			color: $red;
+		}
+
+		&.fa-eye {
+			color: $green;
+		}
 	}
 
 	.colId {

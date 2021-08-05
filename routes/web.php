@@ -22,6 +22,6 @@ Route::get('/date-pickers', 'DatePickersController@index')->name('date-pickers')
 Route::get('/documentation', 'DocumentationController@index')->name('documentation');
 
 
-Route::get('/edit', 'ActionsController@ajax')->name('edit');
-Route::get('/visibility', 'ActionsController@ajax')->name('visibility');
-Route::get('/delete', 'ActionsController@ajax')->name('delete');
+Route::get('/edit/{id}', 'ActionsController@edit')->name('edit');
+Route::get('/visibility/{id}', 'ActionsController@visibility')->name('visibility');
+Route::get('/delete/{id}', 'ActionsController@delete')->name('delete');

@@ -1,0 +1,35 @@
+
+#alerts {
+
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	width: 100%;
+	max-width: 350px;
+	z-index: 10000000;
+
+	.alert {
+		padding: 2rem 1.5rem;
+		color: $white;
+		box-shadow: $box-shadow-1;
+
+		&.alert-info {
+			background-color: $blue;
+			border-color: darken($blue, 10%);
+		}
+
+		&.alert-success {
+			background-color: $green;
+			border-color: darken($green, 10%);
+		}
+
+		&.alert-danger {
+			background-color: $dark-red;
+			border-color: darken($red, 10%);
+		}
+
+		.close {
+			color: $white;
+		}
+	}
+}

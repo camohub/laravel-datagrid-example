@@ -35,13 +35,11 @@
 
 	<div class="container-fluid">
 		<div class="row">
-
 			<div id="main" class="translateInit translate-2 col-12">
 
 				@yield('content')
 
 			</div>
-
 		</div>
 	</div>
 

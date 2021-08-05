@@ -87,6 +87,9 @@ class AjaxController extends Controller
 			->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
 			->setFilter(function ($model, $value) {
 				return $model->where('visible', $value);
+			})
+			->setRender(function ($value, $row) {
+				return $value === 0 ? 'hidden' : 'active';
 			});
 
 		$grid->addColumn('', '', Column::TYPE_CUSTOM)
