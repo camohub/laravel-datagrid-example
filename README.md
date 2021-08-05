@@ -4,4 +4,3 @@
 ```
 composer install camohub/laravel-datagrid
 ```
-
