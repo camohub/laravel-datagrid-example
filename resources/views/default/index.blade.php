@@ -13,6 +13,29 @@
 	});
 </script>
 
+<p>Datagrid definition consists from columns definitions. Code for one column can look like this.
+<pre class="prettyprint">
+$grid->addColumn('title')
+	->setSort()
+	->setFilter(function($model, $value) {
+		return $model->where('title', 'like', "%$value%");
+	})
+	->setSubmitOnEnter();
+
+// ManyToMany example
+$grid->addColumn('user.roles', 'Roles')
+	->setFilter(function($model, $value) {
+		return $model->join('users', 'articles.user_id', '=', 'users.id')
+			->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+			->join('roles', 'users_roles.role_id', '=', 'roles.id')
+			->where('roles.name', 'like', "%$value%");
+	})
+	->setRender(function($value, $row) {
+		return $value->map( function($value) { return $value->name; } )->join(', ');
+	});
+</pre>
+
+<p>The controller code for whole datagrid on this page is below.
 <pre class="prettyprint">
 &lt;?php
 
@@ -53,20 +76,12 @@ class DefaultController extends Controller
 			->setFilter(function($model, $value) {
 				return $model->where('title', 'like', "%$value%");
 			})
-			->setFilterRender(function($column) {
-				return "&lt;input type='text'
-							class='form-control chgrid-filter'
-							name='{$column->filterParamName}'
-							value='{$column->filterValue}'
-							title='Press enter to send filter request.'&gt;";
-			})
 			->setSubmitOnEnter();
 
 		$grid->addColumn('created_at', 'Created')
 			->setSort()
 			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
 			->setFilter(function($model, $value) {
-				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
 				$dateFrom = new \DateTimeImmutable($value);
 				$dateTo = $dateFrom->modify('+1 day');
 				return $model->where('created_at', '>', $dateFrom)
@@ -84,7 +99,6 @@ class DefaultController extends Controller
 			});
 
 		$grid->addColumn('user.roles', 'Roles')
-			->setSort()
 			->setFilter(function($model, $value) {
 				return $model->join('users', 'articles.user_id', '=', 'users.id')
 					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -120,6 +134,11 @@ class DefaultController extends Controller
 
 	}
 }
+</pre>
+
+Template is code is really simple.
+<pre class="prettyprint">
+{{$grid->render()}}
 </pre>
 
 @endsection
