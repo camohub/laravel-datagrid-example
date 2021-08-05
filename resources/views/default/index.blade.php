@@ -4,7 +4,7 @@
 
 {{$grid->render()}}
 
-<script >
+<script>
 	window.addEventListener('DOMContentLoaded', function(e) {
 
 		$('#ajax-datagrid').on('click', '.fa-trash', function(e) {
@@ -14,72 +14,111 @@
 </script>
 
 <pre class="prettyprint">
-public function getBaseDatagrid()
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Entities\Article;
+use Camohub\LaravelDatagrid\Column;
+use Camohub\LaravelDatagrid\Datagrid;
+
+
+class DefaultController extends Controller
 {
-	$grid = new Datagrid(Article::with('user')->select('articles.*'));
 
-	$grid->setJSFilterTimeout(500);
+	public function index()
+	{
+		$grid = $this->getDatagrid();
 
-	$grid->addColumn('id', 'ID');
+		return view('default.index', ['grid' => $grid]);
+	}
 
-	$grid->addColumn('title')
-		->setSort()
-		->setFilter(function($model, $value) {
-			return $model->where('title', 'like', "%$value%");
-		})
-		->setSubmitOnEnter();  // This option prevents filtering before user hits enter.
 
-	$grid->addColumn('created_at', 'Created')
-		->setSort()
-		->setRender(function($value, $row) {
-			return '&lt;b&gt;' . $value->format('d.m.Y') . '&lt;/b&gt;';
-		})
-		->setNoEscape()
-		->setFilter(function($model, $value) {
-			$dateFrom = new \DateTimeImmutable($value);
-			$dateTo = $dateFrom->modify('+1 day');
-			return $model->where('created_at', '>', $dateFrom)
-				->where('created_at', '<', $dateTo);
-		})
-		->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')  // Regexp pattern check before filtering.;
+	public function getDatagrid()
+	{
+		$grid = new Datagrid(Article::with('user')->select('articles.*'));
 
-	$grid->addColumn('user.name', 'User')
-		->setFilter(function($model, $value) {
-			return $model->join('users', 'articles.user_id', '=', 'users.id')
-				->where('users.name', 'like', "%$value%");
+		$grid->setJSFilterTimeout(500);
+
+		$grid->setDefaultSort(function ($model) {
+			return $model->orderBy('id', 'desc');
 		});
 
-	$grid->addColumn('user.roles', 'Roles')
-		->setFilter(function($model, $value) {
-			return $model->join('users', 'articles.user_id', '=', 'users.id')
-				->join('users_roles', 'users.id', '=', 'users_roles.user_id')
-				->join('roles', 'users_roles.role_id', '=', 'roles.id')
-				->where('roles.name', 'like', "%$value%");
-		})
-		->setRender(function($value, $row) {
-			return $value->map( function($value) { return $value->name; } )->join(', ');
-		});
+		$grid->addColumn('id')
+			->setOutherTitleClass('text-center')
+			->setOutherClass(function() { return 'colId text-center'; });
 
-	$grid->addColumn('visible', 'Visible')
-		->setOutherClass(function($value, $row) {
-			return $value ? 'bg-primary text-center' : 'bg-danger text-center';
-		})
-		->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
-		->setFilter(function ($model, $value) {
-			return $model->where('visible', $value);
-		});
+		$grid->addColumn('title')
+			->setSort()
+			->setFilter(function($model, $value) {
+				return $model->where('title', 'like', "%$value%");
+			})
+			->setFilterRender(function($column) {
+				return "&lt;input type='text'
+							class='form-control chgrid-filter'
+							name='{$column->filterParamName}'
+							value='{$column->filterValue}'
+							title='Press enter to send filter request.'&gt;";
+			})
+			->setSubmitOnEnter();
 
-	$grid->addColumn('', '', Column::TYPE_CUSTOM)
-		->setNoEscape()
-		->setOutherClass(function() { return 'colActions'; })
-		->setRender(function($value, $row) {
-			return '&lt;a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil"&gt;&lt;/a&gt;
-				&lt;a href="' . route('visibility', ['id' => $row->id]) . '" class="fa fa-eye"&gt;&lt;/a&gt;
-				&lt;a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash"&gt;&lt;/a&gt;';
-		});
+		$grid->addColumn('created_at', 'Created')
+			->setSort()
+			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
+			->setFilter(function($model, $value) {
+				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
+				$dateFrom = new \DateTimeImmutable($value);
+				$dateTo = $dateFrom->modify('+1 day');
+				return $model->where('created_at', '>', $dateFrom)
+					->where('created_at', '<', $dateTo);
+			})
+			->setRender(function($value, $row) {
+				return '&lt;b&gt;' . $value->format('d.m.Y') . '&lt;/b&gt;';
+			})
+			->setNoEscape();
 
-	return $grid;
+		$grid->addColumn('user.name', 'User')
+			->setFilter(function($model, $value) {
+				return $model->join('users', 'articles.user_id', '=', 'users.id')
+					->where('users.name', 'like', "%$value%");
+			});
 
+		$grid->addColumn('user.roles', 'Roles')
+			->setSort()
+			->setFilter(function($model, $value) {
+				return $model->join('users', 'articles.user_id', '=', 'users.id')
+					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+					->join('roles', 'users_roles.role_id', '=', 'roles.id')
+					->where('roles.name', 'like', "%$value%");
+			})
+			->setRender(function($value, $row) {
+				return $value->map( function($value) { return $value->name; } )->join(', ');
+			});
+
+		$grid->addColumn('visible', 'Visible')
+			->setOutherClass(function($value, $row) {
+				return $value ? 'bg-primary text-center' : 'bg-danger text-center';
+			})
+			->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
+			->setFilter(function ($model, $value) {
+				return $model->where('visible', $value);
+			})
+			->setRender(function ($value, $row) {
+				return $value === 0 ? 'hidden' : 'active';
+			});
+
+		$grid->addColumn('', '', Column::TYPE_CUSTOM)
+			->setOutherClass(function() { return 'colActions'; })
+			->setRender(function($value, $row) {
+				return '&lt;a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil"&gt;&lt;/a&gt;
+					&lt;a href="' . route('visibility', ['id' => $row->id]) . '" class="fa ' . ($row->visible ? 'fa-eye' : 'fa-minus-circle') . '"&gt;&lt;/a&gt;
+					&lt;a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash"&gt;&lt;/a&gt;';
+			})
+			->setNoEscape();
+
+		return $grid;
+
+	}
 }
 </pre>
 
