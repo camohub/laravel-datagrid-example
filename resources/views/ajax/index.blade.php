@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 </script>
 
-<p>The code will need little javascript in the template file. Controller code looks like
+<p>The code for ajax datagrid will need little javascript in the template file. Controller code looks like
 
 <pre class="prettyprint">
 &lt;?php
@@ -77,7 +77,11 @@ class AjaxController extends Controller
 }
 </pre>
 
-<p>The main difference is in the template code which looks like
+<p>The main difference is in the template.
+	The code contains jQuery because I love it, but datagrid does not require jQuery.
+	The second reason I choose jQuery is form .serialize() method
+	and .html(response.data) method wich will run datagrids javascript.
+	It would be painfull to write it in pure js.
 
 <pre class="prettyprint">
 &commat;extends('layouts.layout-full')
