@@ -21,7 +21,10 @@
 
 	<link rel="stylesheet" href="{{mix('css/app.css')}}">
 	<link rel='shortcut icon' type='image/x-icon' href="@assets('/favicon.ico')"/>
+
 	<script src="https://kit.fontawesome.com/6a9f67289a.js" crossorigin="anonymous"></script>
+	{{-- Github star button --}}
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
 	@if(isset($fb))
 		<meta property="og:url" content="{{Request::fullUrl()}}"/>
