@@ -4,6 +4,15 @@
 
 {{$grid->render()}}
 
+<script >
+	window.addEventListener('DOMContentLoaded', function(e) {
+
+		$('#ajax-datagrid').on('click', '.fa-trash', function(e) {
+			return confirm('Are you sure you want to delete this article?');
+		});
+	});
+</script>
+
 <pre class="prettyprint">
 public function getBaseDatagrid()
 {

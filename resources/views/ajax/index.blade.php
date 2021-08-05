@@ -28,6 +28,11 @@ window.addEventListener('DOMContentLoaded', function(e) {
 				console.log(response);
 			});
 	});
+
+
+	$('#ajax-datagrid').on('click', '.fa-trash', function(e) {
+		return confirm('Are you sure you want to delete this article?');
+	});
 });
 
 </script>
