@@ -67,7 +67,7 @@ class DefaultController extends Controller
 		$grid->addColumn('user.name', 'User')
 			->setSort(function($model, $value) {
 				return $model->join('users as uSortName', 'articles.user_id', '=', 'uSortName.id')
-					->orderBy('usersSortName.name', $value);
+					->orderBy('uSortName.name', $value);
 			})
 			->setFilter(function($model, $value) {
 				return $model->join('users as uFilterName', 'articles.user_id', '=', 'uFilterName.id')
