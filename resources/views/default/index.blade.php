@@ -13,7 +13,7 @@
 	});
 </script>
 
-<p>Datagrid definition consists from columns definitions. Code for one column can look like this.
+<p>Datagrid definition consists of a column definition. Code for one columns can look like this.
 <pre class="prettyprint">
 $grid->addColumn('title')
 	->setSort()
@@ -80,12 +80,12 @@ class DefaultController extends Controller
 
 		$grid->addColumn('created_at', 'Created')
 			->setSort()
-			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
+			->setJSFilterPattern('\d{4}-\d{2}-\d{2}')
 			->setFilter(function($model, $value) {
 				$dateFrom = new \DateTimeImmutable($value);
 				$dateTo = $dateFrom->modify('+1 day');
-				return $model->where('created_at', '>', $dateFrom)
-					->where('created_at', '<', $dateTo);
+				return $model->where('articles.created_at', '>', $dateFrom)
+					->where('articles.created_at', '<', $dateTo);
 			})
 			->setRender(function($value, $row) {
 				return '&lt;b&gt;' . $value->format('d.m.Y') . '&lt;/b&gt;';
@@ -93,22 +93,26 @@ class DefaultController extends Controller
 			->setNoEscape();
 
 		$grid->addColumn('user.name', 'User')
+			->setSort(function($model, $value) {
+				return $model->join('users as uSortName', 'articles.user_id', '=', 'uSortName.id')
+					->orderBy('usersSortName.name', $value);
+			})
 			->setFilter(function($model, $value) {
-				return $model->join('users', 'articles.user_id', '=', 'users.id')
-					->where('users.name', 'like', "%$value%");
+				return $model->join('users as uFilterName', 'articles.user_id', '=', 'uFilterName.id')
+					->where('uFilterName.name', 'like', "%$value%");
 			});
 
 		$grid->addColumn('user.roles', 'Roles')
 			->setFilter(function($model, $value) {
-				// If you call same join multiple times use unique alias
-				return $model->join('users as u2', 'articles.user_id', '=', 'u2.id')
-					->join('users_roles', 'u2.id', '=', 'users_roles.user_id')
+				return $model->join('users as uFilterRoles', 'articles.user_id', '=', 'uFilterRoles.id')
+					->join('users_roles', 'uFilterRoles.id', '=', 'users_roles.user_id')
 					->join('roles', 'users_roles.role_id', '=', 'roles.id')
 					->where('roles.name', 'like', "%$value%");
 			})
 			->setRender(function($value, $row) {
 				return $value->map( function($value) { return $value->name; } )->join(', ');
 			});
+
 
 		$grid->addColumn('visible', 'Visible')
 			->setOutherClass(function($value, $row) {
