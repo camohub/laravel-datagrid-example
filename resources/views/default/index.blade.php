@@ -88,7 +88,7 @@ class DefaultController extends Controller
 					->where('articles.created_at', '<', $dateTo);
 			})
 			->setRender(function($value, $row) {
-				return '&lt;b&gt;' . $value->format('d.m.Y') . '&lt;/b&gt;';
+				return '&lt;b&gt;' . $value->format('Y-m-d') . '&lt;/b&gt;';
 			})
 			->setNoEscape();
 
