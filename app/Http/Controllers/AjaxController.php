@@ -67,20 +67,20 @@ class AjaxController extends Controller
 
 		$grid->addColumn('user.name', 'User')
 			->setFilter(function($model, $value) {
-				return $model->join('users as u', 'articles.user_id', '=', 'u.id')
-					->where('u.name', 'like', "%$value%");
+				return $model->join('users', 'articles.user_id', '=', 'users.id')
+					->where('users.name', 'like', "%$value%");
 			});
 
-		/*$grid->addColumn('user.roles', 'Roles')
+		$grid->addColumn('user.roles', 'Roles')
 			->setFilter(function($model, $value) {
-				return $model->join('users', 'articles.user_id', '=', 'users.id')
-					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+				return $model->join('users as u2', 'articles.user_id', '=', 'u2.id')
+					->join('users_roles', 'u2.id', '=', 'users_roles.user_id')
 					->join('roles', 'users_roles.role_id', '=', 'roles.id')
 					->where('roles.name', 'like', "%$value%");
 			})
 			->setRender(function($value, $row) {
 				return $value->map( function($value) { return $value->name; } )->join(', ');
-			});*/
+			});
 
 		$grid->addColumn('visible', 'Visible')
 			->setSort()

@@ -1,6 +1,3 @@
-###Camohub Laravel Datagrid
+### Camohub Laravel Datagrid
 
-###Installation
-```
-composer install camohub/laravel-datagrid
-```
+[Documentation and examples](https://www.youtube.com/watch?v=QLLBbU0ZmvQ)

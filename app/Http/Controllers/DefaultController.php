@@ -54,7 +54,6 @@ class DefaultController extends Controller
 			->setSort()
 			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
 			->setFilter(function($model, $value) {
-				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
 				$dateFrom = new \DateTimeImmutable($value);
 				$dateTo = $dateFrom->modify('+1 day');
 				return $model->where('created_at', '>', $dateFrom)
@@ -73,8 +72,8 @@ class DefaultController extends Controller
 
 		$grid->addColumn('user.roles', 'Roles')
 			->setFilter(function($model, $value) {
-				return $model->join('users', 'articles.user_id', '=', 'users.id')
-					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
+				return $model->join('users as u2', 'articles.user_id', '=', 'u2.id')
+					->join('users_roles', 'u2.id', '=', 'users_roles.user_id')
 					->join('roles', 'users_roles.role_id', '=', 'roles.id')
 					->where('roles.name', 'like', "%$value%");
 			})
