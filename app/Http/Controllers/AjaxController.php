@@ -55,7 +55,6 @@ class AjaxController extends Controller
 			->setSort()
 			->setJSFilterPattern('\d{2}\.\d{2}\.\d{4}')
 			->setFilter(function($model, $value) {
-				//dd($value, new \DateTime($value), (new \DateTime($value))->format('d.m.Y'));
 				$dateFrom = new \DateTimeImmutable($value);
 				$dateTo = $dateFrom->modify('+1 day');
 				return $model->where('created_at', '>', $dateFrom)
@@ -68,11 +67,11 @@ class AjaxController extends Controller
 
 		$grid->addColumn('user.name', 'User')
 			->setFilter(function($model, $value) {
-				return $model->join('users', 'articles.user_id', '=', 'users.id')
-					->where('users.name', 'like', "%$value%");
+				return $model->join('users as u', 'articles.user_id', '=', 'u.id')
+					->where('u.name', 'like', "%$value%");
 			});
 
-		$grid->addColumn('user.roles', 'Roles')
+		/*$grid->addColumn('user.roles', 'Roles')
 			->setFilter(function($model, $value) {
 				return $model->join('users', 'articles.user_id', '=', 'users.id')
 					->join('users_roles', 'users.id', '=', 'users_roles.user_id')
@@ -81,7 +80,7 @@ class AjaxController extends Controller
 			})
 			->setRender(function($value, $row) {
 				return $value->map( function($value) { return $value->name; } )->join(', ');
-			});
+			});*/
 
 		$grid->addColumn('visible', 'Visible')
 			->setSort()

@@ -138,7 +138,7 @@ class DefaultController extends Controller
 
 Template is code is really simple.
 <pre class="prettyprint">
-{{$grid->render()}}
+&lcub;&lcub;$grid->render()&rcub;&rcub;
 </pre>
 
 @endsection
