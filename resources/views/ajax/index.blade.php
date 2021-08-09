@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('components/sorry')
+
 <div id="ajax-datagrid">
 	@include('ajax.ajax-datagrid')
 </div>

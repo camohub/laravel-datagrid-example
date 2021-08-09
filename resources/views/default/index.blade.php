@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('components/sorry')
+
 {{$grid->render()}}
 
 <script>
