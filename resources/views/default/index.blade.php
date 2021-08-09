@@ -13,7 +13,7 @@
 	});
 </script>
 
-<p>Datagrid definition consists of a column definition. Code for one columns can look like this.
+<p>Datagrid consists of datagrid and columns definition. Code for columns can look like this.
 <pre class="prettyprint">
 $grid->addColumn('title')
 	->setSort()
@@ -25,6 +25,8 @@ $grid->addColumn('title')
 // ManyToMany example
 $grid->addColumn('user.roles', 'Roles')
 	->setFilter(function($model, $value) {
+		// You dont need aliases. Package removes duplicate queries.
+		// But you can if you need.
 		return $model->join('users', 'articles.user_id', '=', 'users.id')
 			->join('users_roles', 'users.id', '=', 'users_roles.user_id')
 			->join('roles', 'users_roles.role_id', '=', 'roles.id')

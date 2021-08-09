@@ -78,11 +78,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
-<p>As you can see you can use the same database field more than one times in datagrid.
-It is usefull if you need more than one filter or more format of the same field.
+<p>You can use the same database field more than one times in datagrid.
+It is usefull if you need more than one filter or different formatting of the same field.
 Datagrid ads the suffix for the fields with the same fieldName.
 
-<p>Here is the code of getDatagrid() method from controller. Other code is the same as in basic example.
+<p>Here is the code of getDatagrid() method from controller.
+	The whole code is on <a href="https://github.com/camohub/laravel-datagrid-example/blob/master/app/Http/Controllers/DatePickersController.php">Github</a>.
+
 <pre class="prettyprint">
 public function getDatagrid()
 {
@@ -149,6 +151,86 @@ public function getDatagrid()
 	return $grid;
 
 }
+</pre>
+
+The template code is below. Example uses <a href="https://github.com/dangrossman/daterangepicker">dangrossman/daterangepicker</a> library.
+
+<pre class="prettyprint">
+&lcub;&lcub;$grid->render()&rcub;&rcub;
+
+&lt;script&gt;
+
+window.addEventListener('DOMContentLoaded', function() {
+
+	var filters = $('.chgrid-filter');
+	var input1 = $('#chgrid-filter-created-at');
+	var input2 = $('#chgrid-filter-created-at2');
+	var input3 = $('#chgrid-filter-created-at3');
+	var input4 = $('#chgrid-filter-created-at4');
+
+	input1.daterangepicker({
+		showDropdowns: true,
+		minYear: 1970,
+		maxYear: 2022,
+		linkedCalendars: false,
+		autoUpdateInput: false,
+		locale: {
+			format: 'DD.MM.YYYY'
+		}
+	}, function(start, end) {
+		input1.val(start.format('DD.MM.YYYY') + ' - ' + end.format('DD.MM.YYYY'));
+	});
+
+	input2.daterangepicker({
+		showDropdowns: true,
+		minYear: 1970,
+		maxYear: 2022,
+		linkedCalendars: false,
+		autoUpdateInput: false,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+	}, function(start, end) {
+		input2.val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+	});
+
+	input3.daterangepicker({
+		showDropdowns: true,
+		minYear: 1970,
+		maxYear: 2022,
+		linkedCalendars: false,
+		autoUpdateInput: false,
+		singleDatePicker: true,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+	}, function(date) {
+		input3.val(date.format('YYYY-MM-DD'));
+	});
+
+	input4.daterangepicker({
+		showDropdowns: true,
+		minYear: 1970,
+		maxYear: 2022,
+		linkedCalendars: false,
+		autoUpdateInput: false,
+		singleDatePicker: true,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+	}, function(date) {
+		input4.val(date.format('YYYY-MM-DD'));
+	});
+
+	filters.on('apply.daterangepicker', function(e) {
+		// jquery trigger('input') does not fire js input event.
+		// dispatchEvent is not jquery method. It has to be called on js element.
+		this.dispatchEvent(new Event('input'));
+	});
+
+});
+
+&lt;/script&gt;
 </pre>
 
 @endsection
