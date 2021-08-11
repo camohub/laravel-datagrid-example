@@ -95,9 +95,9 @@ class Controller extends BaseController
 		$grid->addColumn('', '', Column::TYPE_CUSTOM)
 			->setOutherClass(function() { return 'colActions'; })
 			->setRender(function($value, $row) {
-				return '<a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil"></a> 
-					<a href="' . route('visibility', ['id' => $row->id]) . '" class="fa ' . ($row->visible ? 'fa-eye' : 'fa-minus-circle') . '"></a> 
-					<a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash"></a>';
+				return '<a href="' . route('edit', ['id' => $row->id]) . '" class="fa fa-pencil" rel="nofollow"></a> 
+					<a href="' . route('visibility', ['id' => $row->id]) . '" class="fa ' . ($row->visible ? 'fa-eye' : 'fa-minus-circle') . '" rel="nofollow"></a> 
+					<a href="' . route('delete', ['id' => $row->id]) . '" class="text-danger fa fa-trash" rel="nofollow"></a>';
 			})
 			->setNoEscape();
 
