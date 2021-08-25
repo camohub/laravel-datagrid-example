@@ -18,6 +18,15 @@ composer install camohub/laravel-datagrid
 			You can simply catch submit event if you need.
 			Empty inputs are disabled on submit by js and automatically removed from url.
 
+		<p>You should also set up useBootstrap() for paginator in AppServiceProvider.php.
+
+<pre>
+public function boot()
+{
+	Paginator::useBootstrap();
+}
+</pre>
+
 		<h3>Datagrid contains this groups of inputs</h3>
 
 		<ul>
