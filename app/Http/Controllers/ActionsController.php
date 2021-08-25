@@ -29,7 +29,7 @@ class ActionsController extends Controller
 		$article = Article::find((int)$id);
 		$article->delete();
 
-		flash('Article has deleted. <br>All data changes will be set to default values again every hour.')->success();
+		flash('Article has been deleted. <br>All data changes will be set to default values again every hour.')->success();
 		return back();
 	}
 }
