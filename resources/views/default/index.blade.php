@@ -145,7 +145,7 @@ class DefaultController extends Controller
 }
 </pre>
 
-Template is code is really simple.
+Template code is really simple.
 <pre class="prettyprint">
 &lcub;&lcub;$grid->render()&rcub;&rcub;
 </pre>
