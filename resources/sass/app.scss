@@ -125,6 +125,7 @@ body {
 
 #footer {
 	text-align: center;
+	position: relative /* Otherwise it is below the #main element and link in footer is not clickable. */
 }
 
 

@@ -1,7 +1,7 @@
 @php
 	use Illuminate\Support\Facades\Request;
 @endphp
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html itemscope itemtype="https://schema.org/Article">
 <head>
 	<!-- Google Tag Manager -->
