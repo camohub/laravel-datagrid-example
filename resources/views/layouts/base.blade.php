@@ -49,7 +49,7 @@
 
 
 <div id="footer">
-	<strong>Created & designed by <a href="https://tatrytec.eu/blog">Tatrytec.eu</a> 2020</strong> &nbsp;&nbsp
+	<strong>Created & designed by <a href="https://tatrytec.eu/najnovsie">Tatrytec.eu</a> 2020</strong> &nbsp;&nbsp
 </div>
 
 
