@@ -20,7 +20,7 @@ composer install camohub/laravel-datagrid
 
 		<p>You should also set up useBootstrap() for paginator in AppServiceProvider.php.
 
-<pre>
+<pre class="prettyprint">
 public function boot()
 {
 	Paginator::useBootstrap();
